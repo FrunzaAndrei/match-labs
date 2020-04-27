@@ -1,49 +1,15 @@
-# Installation guide
+# Week3 assignment
 
-### Install Chrome
+In this assignment we create a form which will be used to register and to edit an existing candidate.
+Please check the root folder and inside the `/lab-resources` folder you will find 2 images showcasing a preview of the final work.
 
-In order to have the same development experience and behaviour while developing we will all be using Google Chrome to run our app. Please install Chrome from the following link:
+The form component will have to accept an object as an `inputs={inputsData}` prop. From this object, the form will have to build its own input fields.
+You can find the local mock objects in the mocks.js file.
 
-[Google Chrome link](https://www.google.com/chrome)
+The form should be a separate component called `<CandidateForm>` which will reside once in the `Account` page, and once in the `Register` page. We need to create those pages and add `routes` to them. Make sure to include the apropriate `CandidateForm.module.css`, `Register.module.css`, and `Account.module.css`
 
-### Install Visual Studio Code
+For each input of the form, we should have the possibility to display a default value, or a placeholder. The reason for this is that in our app we need to display the inputs with the default value on the "Edit account" page, while on the "Create candidate" page we will display the inputs that have a placeholder value.
 
-Through out the course we will be using Visual Studio code as our mai tool to write code. You can find and download Visual Studio Code by navigating to the following link:
+The form will need to have a submit button, that when clicked, will pass all the data of the form, to the parent component, which in our case is the `Account` page.
 
-[Visual Studio Code link](https://code.visualstudio.com/Download)
-
-### Install Node.js
-
-Make sure you have the latest version of Node installed on your computer. You can find and download Node at the following link:
-
-[Node.js link](https://nodejs.org/en/)
-
-Please always choose the LTS version.
-
-### Creating and running our first React app
-
-Please create a folder on your local machine which we will use through out the course. A recommendation is to create a folder called "projects" on your main drive, and inside it we will clone our match-labs app.
-Example: D:/projects
-
-1. Open a terminal window. On Windows, search for CMD.
-
-2. Navigate in the terminal to the projects folder by running the following command:
-   `cd D:\projects` where `D:` is your folder drive
-
-3. Once inside the folder clone our repository by running:
-   `git clone https://github.com/PaulMacinic/match-labs.git`
-
-4. Navigate to the folder you cloned by using:
-   `cd match-labs-course`
-
-5. Once inside the folder run the following command:
-   `npm install`
-   
-6. Once the modules finish installing you can start the project by running:
-   `npm start`
-
-7. Open the match-labs-course folder in VSCode
-
-8. Navigate in your favourite browser to localhost:3000
-
-8. Enjoy, you just cloned your first React app. 🎉
+As a final step, in the `Account` page `console.log()` the received values of the form.
