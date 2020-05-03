@@ -24,11 +24,12 @@ const App = () => {
     };
     onMount();
   }, []);
+  
 
   if (user === null) return <Loader />;
 
   return (
-    <AppContext.Provider value={{ user }}>
+    <AppContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
         <Toggle />
         <Switch>
@@ -37,7 +38,12 @@ const App = () => {
           <Route path="/account" component={Account}></Route>
           <Route path="/register" component={Register}></Route>
           <Route path="/login" component={Login}></Route>
-          <Route path="/logout" component={Logout}></Route>
+          <Route
+            path="/logout"
+            render={() =>
+              user ? <Logout /> : <Redirect to={{ pathname: "/login" }} />
+            }
+          ></Route>
           <Route
             path="/"
             render={() =>
