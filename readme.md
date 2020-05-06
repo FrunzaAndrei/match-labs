@@ -1,49 +1,30 @@
-# Installation guide
+# Week4 exercise2
 
-### Install Chrome
+On the Logout page that you created in the previous exercise, you should now also clear the information that lives in the Context.
 
-In order to have the same development experience and behaviour while developing we will all be using Google Chrome to run our app. Please install Chrome from the following link:
+When the Logout page mounts, call a function that sets the `user` in the Context equal to `false`.
 
-[Google Chrome link](https://www.google.com/chrome)
+The main trick of the exercise is to figure out how can you call a function from the Context inside the Logout page.
+Hint: Use the knowledge you gained in lab 3 :)
 
-### Install Visual Studio Code
 
-Through out the course we will be using Visual Studio code as our mai tool to write code. You can find and download Visual Studio Code by navigating to the following link:
+# Week4 exercise3
 
-[Visual Studio Code link](https://code.visualstudio.com/Download)
+### PART I
 
-### Install Node.js
+The form on the Account page is at the moment taking in static data from mocks.js.
 
-Make sure you have the latest version of Node installed on your computer. You can find and download Node at the following link:
+We would like pass dynamic data to it so that the form can build itself based on the type of account that is currenlty logged in.
+The data should come from the user object stored in the Context.
 
-[Node.js link](https://nodejs.org/en/)
+### PART II
 
-Please always choose the LTS version.
+At the moment, on submit, the `Account` form just logs the values.
 
-### Creating and running our first React app
+Create a new request function that sends the data to the `edit candidate endpoint`.
+The endpoint for the editCandidate is:
+`https://match-labs-api.herokuapp.com/api/candidates/:id`
 
-Please create a folder on your local machine which we will use through out the course. A recommendation is to create a folder called "projects" on your main drive, and inside it we will clone our match-labs app.
-Example: D:/projects
+Make sure the method you are using is `PUT`.
 
-1. Open a terminal window. On Windows, search for CMD.
-
-2. Navigate in the terminal to the projects folder by running the following command:
-   `cd D:\projects` where `D:` is your folder drive
-
-3. Once inside the folder clone our repository by running:
-   `git clone https://github.com/PaulMacinic/match-labs.git`
-
-4. Navigate to the folder you cloned by using:
-   `cd match-labs-course`
-
-5. Once inside the folder run the following command:
-   `npm install`
-   
-6. Once the modules finish installing you can start the project by running:
-   `npm start`
-
-7. Open the match-labs-course folder in VSCode
-
-8. Navigate in your favourite browser to localhost:3000
-
-8. Enjoy, you just cloned your first React app. 🎉
+When clicking on `Submit`, the Account form should send the data to the API and edit the current user.
