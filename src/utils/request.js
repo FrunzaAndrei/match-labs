@@ -15,6 +15,23 @@ const format = (data) => {
       };
 };
 
+const formatLabs = (data) => {
+  return role === "company"
+    ? {
+        id: data.id,
+        name: `${data.first_name} ${data.last_name}`,
+        profile_image: data.candidate.profile_image,
+      }
+    : {
+        id: data.id,
+        name: data.company.name,
+        objectives: data.objectives,
+        description: data.company.description,
+        profile_image: data.company.profile_image,
+        technologies: data.technologies,
+      };
+};
+
 const formatMe = (data) =>
   data.matcher_type === "Candidate"
     ? {
@@ -62,7 +79,10 @@ const config = {
 export const fetchMatches = async () => {
   const url = role === "company" ? `${baseUrl}/candidates` : `${baseUrl}/labs`;
 
-  const res = await fetch(url, { method: "GET" });
+  const res = await fetch(`${url}`, {
+    method: "GET",
+    headers: { ...config.headers, ...config.authorization },
+  });
   const json = await res.json();
 
   return json.map((j) => format(j));
@@ -70,10 +90,12 @@ export const fetchMatches = async () => {
 
 export const fetchProfile = async (id) => {
   const entity = role === "candidate" ? `labs` : `candidates`;
-
-  const res = await fetch(`${baseUrl}/${entity}/${id}`, { method: "GET" });
+  const res = await fetch(`${baseUrl}/${entity}/${id}`, {
+    method: "GET",
+    headers: { ...config.headers, ...config.authorization },
+  });
   const json = await res.json();
-  return format(json);
+  return formatLabs(json);
 };
 
 export const fetchLikes = () => {
@@ -225,4 +247,16 @@ export const editAccount = async (id, data) => {
 
   const json = await res.json();
   return json;
+};
+
+export const fetchAllLikes = async () => {
+  const res = await fetch(`${baseUrl}/labs`, {
+    method: "GET",
+    headers: { ...config.headers, ...config.authorization },
+  }).catch((e) => console.log(e));
+
+  const json = await res.json();
+  const result = json.map((item) => formatLabs(item));
+
+  return result;
 };

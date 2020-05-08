@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Likes.module.css";
-
-import { labs, technologies } from "../mocks";
 import Card from "../components/Card";
+import { fetchAllLikes } from "../utils/request";
+import Loader from "../components/Loader";
 
 const Likes = (props) => {
+  const [labs, setLabs] = useState([]);
+  useEffect(() => {
+    const onMount = async () => {
+      const res = await fetchAllLikes();
+      setLabs(res);
+    };
+    onMount();
+  }, []);
+
+  if (!labs) return <Loader />;
   return (
     <div className={styles.content}>
       {labs.map((lab) => (
@@ -15,8 +25,8 @@ const Likes = (props) => {
           <Card
             outline
             name={lab.name}
-            imgUrl={lab.url}
-            technologies={technologies}
+            imgUrl={lab.profile_image}
+            technologies={lab.technologies}
           ></Card>
         </div>
       ))}

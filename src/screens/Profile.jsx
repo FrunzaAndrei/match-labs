@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import styles from "./Profile.module.css";
 import Tags from "../components/Tags";
 import Card from "../components/Card";
@@ -8,17 +7,19 @@ import Loader from "../components/Loader";
 
 const Profile = (props) => {
   const [profile, setProfile] = useState(null);
+  const [loader, isLoading] = useState(false);
 
   useEffect(() => {
     const onMount = async () => {
       const id = props.match.params.id;
       const profile = await fetchProfile(id);
       setProfile(profile);
+      isLoading(true);
     };
     onMount();
   }, []);
 
-  if (!profile) return <Loader />;
+  if (!loader) return <Loader />;
 
   return (
     <>

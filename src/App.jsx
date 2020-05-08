@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-
 import { AppContext } from "./Context";
 import { me } from "./utils/request";
 import Profile from "./screens/Profile";
@@ -20,6 +19,7 @@ const App = () => {
     const onMount = async () => {
       const user = await me();
       setUser(user);
+      console.log(user);
       localStorage.setItem("role", user.role);
     };
     onMount();
@@ -40,11 +40,12 @@ const App = () => {
           <Route path="/logout" component={Logout}></Route>
           <Route
             path="/"
-            render={() =>
+            render={(props) =>
               user ? (
-                <Likes />
+                <Likes {...props} />
               ) : (
                 <Redirect
+                  {...props}
                   to={{
                     pathname: "/login",
                   }}
