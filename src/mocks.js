@@ -60,6 +60,10 @@ export const EDIT_CANDIDATE_FIELDS = [
     name: "profile_image",
     value: "https://obscurial.dk/match-labs/paul.jpg",
   },
+  {
+    name: "technologies",
+    value: [],
+  },
 ];
 
 export const CREATE_CANDIDATE_FIELDS = [

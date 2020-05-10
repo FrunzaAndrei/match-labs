@@ -27,6 +27,7 @@ const formatMe = (data) =>
           description: data.matcher.description,
           phone: data.matcher.phone,
           profile_image: data.matcher.profile_image,
+          technologies:[]
         },
       }
     : {
@@ -54,6 +55,24 @@ const formatMatch = (data) => {
         profile_image: data.candidate.profile_image,
         technologies: data.candidate.technologies,
       };
+};
+
+const formatTech = (data) => {
+  return {
+    name: data.name,
+    label: data.name
+  };
+};
+
+export const fetchTechnologies = async () => {
+  const res = await fetch(`${baseUrl}/technologies`, {
+    method: "GET",
+    headers: { ...config.headers, ...config.authorization },
+  });
+  handleErrors(res);
+  const json = await res.json();
+  const result = json.map((item) => formatTech(item));
+  return result;
 };
 
 function handleErrors(response) {
@@ -205,3 +224,4 @@ export const editAccount = async (id, data) => {
   const json = await res.json();
   return json;
 };
+
