@@ -4,7 +4,7 @@ import styles from "./CandidateForm.module.css";
 import Button from "./Button";
 import Loader from "./Loader";
 import Select from "react-select";
-import { fetchTechnologies } from "../utils/request";
+import { fetchTechnologies,formatTech } from "../utils/request";
 
 const CandidateForm = ({ fields, onSubmit }) => {
   console.log("field => ", fields);
@@ -15,7 +15,6 @@ const CandidateForm = ({ fields, onSubmit }) => {
   useEffect(() => {
     const onMount = async () => {
       const res = await fetchTechnologies();
-      console.log("technologies => ", res);
       setTechnologies(res);
     };
     onMount();
@@ -29,10 +28,17 @@ const CandidateForm = ({ fields, onSubmit }) => {
   };
 
   const onSelectChange = (selected) => {
+    if (!selected) return;
+
+    console.log(selected);
     // 3. copy values
-    console.log("onSelectChange => ", selected);
+    const newValues = [...values];
     // find index of technologies input
+    const index = newValues.findIndex((index) => index.name === "technologies");
+
+    newValues[index] = { ...newValues[index], value: selected.map(val => val.value) };
     // loop through the selected values
+    setValues(newValues);
   };
 
   const formHandler = (e) => {
@@ -67,9 +73,9 @@ const CandidateForm = ({ fields, onSubmit }) => {
             // Add onSelectChange and options
             <Select
               onChange={onSelectChange}
+              name={field.name}
               key={field.name}
-              defaultValue={[]}
-              name={"Technologies"}
+              defaultValue={field.value}
               isMulti
               options={technologies}
             />

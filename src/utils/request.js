@@ -27,7 +27,7 @@ const formatMe = (data) =>
           description: data.matcher.description,
           phone: data.matcher.phone,
           profile_image: data.matcher.profile_image,
-          technologies:[]
+          technologies: data.matcher.technologies.map(item=>formatTech(item)),
         },
       }
     : {
@@ -57,10 +57,10 @@ const formatMatch = (data) => {
       };
 };
 
-const formatTech = (data) => {
+export const formatTech = (data) => {
   return {
-    name: data.name,
-    label: data.name
+    value: data.id,
+    label: data.name,
   };
 };
 
@@ -224,4 +224,3 @@ export const editAccount = async (id, data) => {
   const json = await res.json();
   return json;
 };
-
