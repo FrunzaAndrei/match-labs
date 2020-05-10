@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import CandidateForm from "../components/CandidateForm";
 import PageTitle from "../components/PageTitle";
 import { AppContext } from "../Context";

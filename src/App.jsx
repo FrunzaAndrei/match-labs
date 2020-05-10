@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import { AppContext } from "./Context";
 import { me } from "./utils/request";
 import Profile from "./screens/Profile";

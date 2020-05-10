@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-
 import styles from "./CandidateForm.module.css";
 import Button from "./Button";
 import Loader from "./Loader";
 import Select from "react-select";
-import { fetchTechnologies,formatTech } from "../utils/request";
+import { fetchTechnologies } from "../utils/request";
 
 const CandidateForm = ({ fields, onSubmit }) => {
-  console.log("field => ", fields);
   // 1. Set values and technologies
   const [values, setValues] = useState(fields);
   const [technologies, setTechnologies] = useState([]);
@@ -36,7 +34,10 @@ const CandidateForm = ({ fields, onSubmit }) => {
     // find index of technologies input
     const index = newValues.findIndex((index) => index.name === "technologies");
 
-    newValues[index] = { ...newValues[index], value: selected.map(val => val.value) };
+    newValues[index] = {
+      ...newValues[index],
+      value: selected.map((val) => val.value),
+    };
     // loop through the selected values
     setValues(newValues);
   };
@@ -72,6 +73,7 @@ const CandidateForm = ({ fields, onSubmit }) => {
             // 5. Bring prebuilt select
             // Add onSelectChange and options
             <Select
+              className={styles.select}
               onChange={onSelectChange}
               name={field.name}
               key={field.name}
