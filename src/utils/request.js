@@ -254,3 +254,13 @@ export const dislike = async (id) => {
 
   return json;
 };
+
+export const getMatches = async () => {
+  const res = await fetch(`${baseUrl}/matches/new`, {
+    method: "GET",
+    headers: { ...config.headers, ...config.authorization },
+  });
+  const json = await res.json();
+
+  return json[0];
+};

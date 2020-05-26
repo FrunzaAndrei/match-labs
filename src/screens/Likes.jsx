@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./Likes.module.css";
 
-import { fetchLikes } from "../utils/request";
+import { fetchLikes, getMatches } from "../utils/request";
 import { useState } from "react";
 import Loader from "../components/Loader";
 import Swiper from "../components/Swiper";
@@ -9,11 +9,15 @@ import Match from "../components/Match";
 
 const Likes = () => {
   const [likes, setLikes] = useState(null);
+  const [match, isMatch] = useState(null);
 
   useEffect(() => {
     const onMount = async () => {
       const likes = await fetchLikes();
+      console.log(likes);
       setLikes(likes);
+      const matched = await getMatches();
+      isMatch(matched);
     };
     onMount();
   }, []);
@@ -29,6 +33,7 @@ const Likes = () => {
   return (
     <div className={styles.content}>
       <Swiper items={likes} callback={removeLike}></Swiper>
+      {!!match && <Match match={match.lab} />}
     </div>
   );
 };
