@@ -9,7 +9,6 @@ const Match = ({ match }) => {
   const { user } = useContext(AppContext);
   return (
     <div className={styles.match}>
-      {console.log(user)}
       <div className={styles.header}>
         <h1>It's a match</h1>
       </div>
