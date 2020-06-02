@@ -297,23 +297,20 @@ export const fetchLabs = async () => {
   return labs[0];
 };
 
-// export const deleteLab = async (id) => {
-//   const res = await fetch(`${baseUrl}/labs/${id}`, {
-//     method: "DELETE",
-//     headers: { ...config.headers, ...config.authorization },
-//   });
-//   const json = await res.json();
+export const deleteLab = async (id) => {
+  await fetch(`${baseUrl}/labs/${id}`, {
+    method: "DELETE",
+    headers: { ...config.headers, ...config.authorization },
+  });
+};
 
-//   return json;
-// };
+export const editLab = async (id, data) => {
+  const res = await fetch(`${baseUrl}/labs/${id}`, {
+    method: "PUT",
+    headers: { ...config.headers, ...config.authorization },
+    body: JSON.stringify(data),
+  });
+  const json = await res.json();
 
-// export const editLab = async (id, data) => {
-//   const res = await fetch(`${baseUrl}/labs/${id}`, {
-//     method: "PUT",
-//     headers: { ...config.headers, ...config.authorization },
-//     body: JSON.stringify(data),
-//   });
-//   const json = await res.json();
-
-//   return json;
-// };
+  return json;
+};

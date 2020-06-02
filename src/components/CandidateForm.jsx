@@ -6,10 +6,9 @@ import Loader from "./Loader";
 import Select from "react-select";
 import { fetchTechnologies } from "../utils/request";
 
-const CandidateForm = ({ fields, onSubmit }) => {
+const CandidateForm = ({ fields, onSubmit, defaultValue = false }) => {
   const [values, setValues] = useState(fields);
   const [technologies, setTechnologies] = useState(null);
-
   useEffect(() => {
     const onMount = async () => {
       const technologies = await fetchTechnologies();
@@ -31,7 +30,6 @@ const CandidateForm = ({ fields, onSubmit }) => {
 
   const onSelectChange = (selected) => {
     if (!selected) return;
-
     const newValues = [...values];
     const index = newValues.findIndex((value) => value.name === "technologies");
     newValues[index] = {
@@ -53,11 +51,12 @@ const CandidateForm = ({ fields, onSubmit }) => {
 
   if (!values) return <Loader></Loader>;
 
-  const _renderSelect = () => {
+  const _renderSelect = (defaultValue) => {
     return (
       <Select
         name={"technologies"}
         onChange={onSelectChange}
+        defaultValue={defaultValue}
         isMulti
         options={technologies}
         placeholder={"Technologies"}
@@ -80,7 +79,7 @@ const CandidateForm = ({ fields, onSubmit }) => {
       <form onSubmit={(e) => formHandler(e)} className={styles.form}>
         {values.map((field) => (
           <React.Fragment key={field.name}>
-            {field.name === "technologies" && _renderSelect()}
+            {field.name === "technologies" && _renderSelect(defaultValue)}
             {field.name !== "technologies" && (
               <div className={styles.field}>
                 <input
